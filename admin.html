@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Reset styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #ff8c00;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #e67600;
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 260px;
+            padding: 20px;
+            width: calc(100% - 260px);
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: scale(1.02);
+        }
+
+        .dashboard-card h3 {
+            color: #ff8c00;
+            font-size: 1.5em;
+        }
+
+        /* Chart container styling */
+        .chart-container {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .chart-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 20px); /* Adjust width for smaller boxes */
+            height: 300px; /* Set fixed height for charts */
+            position: relative; /* For absolute positioning of canvas */
+        }
+
+        canvas {
+            max-width: 100%;
+            height: 100%; /* Full height for better fit */
+        }
+
+        /* Table styling */
+        .table-container {
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ff8c00;
+            color: white;
+        }
+
+        .btn {
+            background-color: #ff8c00;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e67600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-card {
+                width: 100%;
+            }
+
+            .chart-box {
+                width: 100%; /* Full width for smaller screens */
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .chart-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="#dashboard"><i class="icon">🏠</i>Dashboard</a>
+        <a href="#products"><i class="icon">📦</i>Products</a>
+        <a href="#orders"><i class="icon">📋</i>Orders</a>
+        <a href="#customers"><i class="icon">👥</i>Customers</a>
+        <a href="#reports"><i class="icon">📊</i>Reports</a>
+        <a href="pagelayout.html">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Dashboard</h1>
+        <div class="dashboard">
+            <div class="dashboard-card" id="total-sales">
+                <h3>Total Sales</h3>
+                <p id="sales-value">$0</p>
+            </div>
+            <div class="dashboard-card" id="new-orders">
+                <h3>New Orders</h3>
+                <p id="orders-value">0</p>
+            </div>
+            <div class="dashboard-card" id="total-customers">
+                <h3>Total Customers</h3>
+                <p id="customers-value">0</p>
+            </div>
+        </div>
+
+        <!-- Chart for Sales Data -->
+        <div class="chart-container">
+            <div class="chart-box">
+                <h2>Sales Over the Years</h2>
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h2>Orders Over the Years</h2>
+                <canvas id="ordersChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Product Management -->
+        <div class="table-container" id="products">
+            <h2>Product Management</h2>
+            <input type="text" id="product-name" placeholder="Product Name">
+            <input type="text" id="product-price" placeholder="Product Price">
+            <button onclick="addProduct()" class="btn">Add Product</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table"></tbody>
+            </table>
+        </div>
+
+        <!-- Orders Management -->
+        <div class="table-container" id="orders">
+            <h2>Orders Management</h2>
+            <input type="text" id="order-details" placeholder="Order Details">
+            <button onclick="addOrder()" class="btn">Add Order</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="order-table"></tbody>
+            </table>
+        </div>
+
+        <!-- Customer Management -->
+        <div class="table-container" id="customers">
+            <h2>Customer Management</h2>
+            <input type="text" id="customer-name" placeholder="Customer Name">
+            <button onclick="addCustomer()" class="btn">Add Customer</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="customer-table"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard data
+        let sales = 12000;
+        let orders = 23;
+        let customers = 50;
+
+        document.getElementById('sales-value').textContent = `$${sales}`;
+        document.getElementById('orders-value').textContent = orders;
+        document.getElementById('customers-value').textContent = customers;
+
+        // Chart.js data
+        const salesData = [10000, 15000, 20000, 25000, 30000, sales];
+        const ordersData = [10, 15, 25, 30, 40, orders];
+
+        const ctxSales = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctxSales, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Sales',
+                    data: salesData,
+                    borderColor: '#ff8c00',
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Sales ($)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    }
+                }
+            }
+        });
+
+        const ctxOrders = document.getElementById('ordersChart').getContext('2d');
+        const ordersChart = new Chart(ctxOrders, {
+            type: 'bar',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Orders',
+                    data: ordersData,
+                    backgroundColor: '#ff8c00',
+                    borderColor: 'rgba(255, 140, 0, 0.7)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Orders'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    }
+                }
+            }
+        });
+
+        // Product Management
+        function addProduct() {
+            const name = document.getElementById('product-name').value;
+            const price = document.getElementById('product-price').value;
+
+            if (name && price) {
+                const productTable = document.getElementById('product-table');
+                const row = productTable.insertRow();
+                row.insertCell(0).innerText = name;
+                row.insertCell(1).innerText = `$${price}`;
+                const deleteCell = row.insertCell(2);
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.className = 'btn';
+                deleteButton.onclick = function () {
+                    productTable.deleteRow(row.rowIndex - 1);
+                };
+                deleteCell.appendChild(deleteButton);
+                document.getElementById('product-name').value = '';
+                document.getElementById('product-price').value = '';
+            }
+        }
+
+        // Order Management
+        function addOrder() {
+            const details = document.getElementById('order-details').value;
+
+            if (details) {
+                const orderTable = document.getElementById('order-table');
+                const row = orderTable.insertRow();
+                row.insertCell(0).innerText = details;
+                const deleteCell = row.insertCell(1);
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.className = 'btn';
+                deleteButton.onclick = function () {
+                    orderTable.deleteRow(row.rowIndex - 1);
+                    orders--;  // Decrease order count when deleted
+                    document.getElementById('orders-value').textContent = orders;  // Update order count
+                };
+                deleteCell.appendChild(deleteButton);
+                document.getElementById('order-details').value = '';
+
+                // Update dashboard
+                orders++;
+                document.getElementById('orders-value').textContent = orders; // Increase order count
+                sales += Math.floor(Math.random() * 100) + 50; // Increase sales randomly for demo
+                document.getElementById('sales-value').textContent = `$${sales}`; // Update sales value
+
+                // Update charts
+                salesChart.data.datasets[0].data.push(sales);
+                salesChart.update();
+
+                ordersChart.data.datasets[0].data.push(orders);
+                ordersChart.update();
+            }
+        }
+
+        // Customer Management
+        function addCustomer() {
+            const name = document.getElementById('customer-name').value;
+
+            if (name) {
+                const customerTable = document.getElementById('customer-table');
+                const row = customerTable.insertRow();
+                row.insertCell(0).innerText = name;
+                const deleteCell = row.insertCell(1);
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.className = 'btn';
+                deleteButton.onclick = function () {
+                    customerTable.deleteRow(row.rowIndex - 1);
+                };
+                deleteCell.appendChild(deleteButton);
+                document.getElementById('customer-name').value = '';
+                customers++; // Increase customer count
+                document.getElementById('customers-value').textContent = customers; // Update customer count
+            }
+        }
+    </script>
+</body>
+
+</html>

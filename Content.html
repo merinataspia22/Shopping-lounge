@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entertainment Content Page</title>
+<style>
+    /* General Styling */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #e9ecef;
+        color: #333;
+        line-height: 1.6;
+    }
+    /* Container Styling */
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+        color: #007bff;
+    }
+    p {
+        color: #555;
+    }
+    /* Section Styling */
+    .section {
+        margin-bottom: 40px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    .section:hover {
+        transform: scale(1.02);
+    }
+    h2 {
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+    .section a {
+        display: inline-block;
+        margin-top: 10px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .section a:hover {
+        text-decoration: underline;
+    }
+    /* Back to Top Button */
+    .go-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        display: none;
+        transition: opacity 0.3s;
+    }
+    .go-to-top:hover {
+        opacity: 0.8;
+    }
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        background-color: #333;
+        padding: 10px;
+    }
+    .navbar a {
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+    }
+    .navbar a:hover {
+        background-color: #007bff;
+        border-radius: 5px;
+    }
+    /* Slideshow Styling */
+    .slideshow {
+        position: relative;
+        max-width: 100%;
+        height: 300px;
+        margin: 20px auto;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+    .slides {
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+    .active-slide {
+        display: block;
+    }
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#section1">Latest Movies</a>
+        <a href="#section2">Trending TV Shows</a>
+        <a href="#section3">Music Highlights</a>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Entertainment Content</h1>
+
+        <!-- Movies Section with Slideshow -->
+        <section id="section1" class="section">
+            <h2>Latest Movies</h2>
+            <div class="slideshow">
+                <img src="images/mov1.jpeg" alt="Movie 1" class="slides active-slide">
+                <img src="images/mov2.jpeg" alt="Movie 2" class="slides">
+                <img src="images/mov3.jpeg" alt="Movie 3" class="slides">
+            </div>
+            <p>Stay updated with the latest blockbuster releases and indie gems from Hollywood and beyond. Discover in-depth reviews, trailers, and critics' choices for the top movies in theaters, and get insider insights on upcoming film events and exclusive interviews. Dive into movie magic with discussions about plot twists, character development, and the visual effects that bring these stories to life. We offer a comprehensive list of films across various genres, from intense thrillers and heartfelt dramas to laugh-out-loud comedies and adventurous sci-fi. Enjoy sneak peeks at the hottest titles, and plan your movie nights with friends and family.</p>
+            <a href="#section2">Go to TV Shows</a>
+        </section>
+
+        <section id="section2" class="section">
+            <h2>Trending TV Shows</h2>
+            <p>Discover the trending TV shows everyone’s talking about. Our curated list includes must-watch dramas, side-splitting comedies, and gripping documentaries that are redefining television. Dive deep into the worlds of these shows, exploring themes, characters, and the storylines that keep fans engaged. Whether you’re looking for the latest binge-worthy series or a thought-provoking limited series, we've got you covered. Our reviews and episode guides provide you with everything you need to keep up with the best shows on popular streaming services. Join discussions, read fan theories, and uncover hidden Easter eggs within your favorite shows.</p>
+            <a href="#section1">Go to Movies</a> | <a href="#section3">Go to Music</a>
+        </section>
+
+        <section id="section3" class="section">
+            <h2>Music Highlights</h2>
+            <p>Explore the latest music releases and dive into the vibrant world of music discovery. From chart-topping pop hits to the latest indie releases, find new tracks that resonate with your vibe. Our music highlights bring you reviews, artist interviews, and curated playlists to suit every mood and occasion. Keep up with the latest collaborations, album drops, and exclusive performances from artists around the globe. Whether you're a fan of pop, rock, hip-hop, or electronic music, our features offer you a gateway to the soundtracks that define our times.</p>
+            <a href="#section1">Go to Movies</a> | <a href="#section2">Go to TV Shows</a>
+        </section>
+    </div>
+    
+    <!-- Go to top button -->
+    <button class="go-to-top" onclick="scrollToTop()">Go to top</button>
+    
+<script>
+    // Scroll to Top Function
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Show/Hide "Go to Top" Button
+    window.onscroll = function() {
+        let button = document.querySelector('.go-to-top');
+        if (window.scrollY > 100) {
+            button.style.display = 'block';
+        } else {
+            button.style.display = 'none';
+        }
+    };
+
+    // Slideshow Functionality
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slides');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active-slide');
+            if (i === index) {
+                slide.classList.add('active-slide');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+</script>
+</body>
+</html>

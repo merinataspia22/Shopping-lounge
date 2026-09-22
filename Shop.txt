@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Page Example</title>
+<style>
+    /* CSS for shop page */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .product {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .product-item {
+        width: 300px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .product-item img {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .product-options {
+        margin-bottom: 20px;
+    }
+    .order-summary,
+    .checkout-summary {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+    }
+    .checkout-feedback {
+        color: green;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Shop Page</h1>
+
+    <!-- Product Showcase -->
+    <div class="product">
+        <div class="product-item">
+            <img src="product1.jpg" alt="Product 1">
+            <div class="product-options">
+                <select>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
+            <button onclick="addToCart()">Add to Cart</button>
+        </div>
+        <!-- Add more product items here -->
+    </div>
+
+    <!-- Order Summary (Basket) -->
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <ul id="orderList">
+            <!-- Order items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <!-- Checkout Summary -->
+    <div class="checkout-summary">
+        <h2>Checkout Summary</h2>
+        <p>Total Items: <span id="totalItems">0</span></p>
+        <p>Total Price: $<span id="totalPrice">0.00</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Checkout System Feedback -->
+    <div class="checkout-feedback" id="checkoutFeedback"></div>
+</div>
+
+<script>
+    let cart = [];
+    
+    function addToCart() {
+        // Add product to cart (dummy implementation)
+        cart.push({
+            name: "Product 1",
+            price: 10
+        });
+        updateOrderSummary();
+    }
+
+    function updateOrderSummary() {
+        let orderList = document.getElementById('orderList');
+        let totalPrice = document.getElementById('totalPrice');
+        let totalItems = document.getElementById('totalItems');
+        
+        // Clear existing order list
+        orderList.innerHTML = '';
+        
+        // Populate order list with cart items
+        cart.forEach(item => {
+            let listItem = document.createElement('li');
+            listItem.textContent = item.name + ' - $' + item.price.toFixed(2);
+            orderList.appendChild(listItem);
+        });
+        
+        // Update total price and total items
+        let price = cart.reduce((acc, item) => acc + item.price, 0);
+        totalPrice.textContent = price.toFixed(2);
+        totalItems.textContent = cart.length;
+    }
+
+    function checkout() {
+        // Dummy checkout process (clears cart and provides feedback)
+        cart = [];
+        updateOrderSummary();
+        document.getElementById('checkoutFeedback').textContent = 'Checkout successful! Thank you for your order.';
+    }
+</script>
+</body>
+</html>

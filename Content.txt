@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Linking with Go to Top Button</title>
+<style>
+    /* CSS for styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    section {
+        margin-bottom: 40px;
+    }
+    h2 {
+        margin-top: 0;
+    }
+    .go-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        display: none;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <section id="section1">
+        <h2>Section 1</h2>
+        <p>This is the content of section 1.</p>
+    </section>
+    <section id="section2">
+        <h2>Section 2</h2>
+        <p>This is the content of section 2.</p>
+        <p><a href="#section1">Go to Section 1</a></p>
+    </section>
+    <section id="section3">
+        <h2>Section 3</h2>
+        <p>This is the content of section 3.</p>
+        <p><a href="#section1">Go to Section 1</a></p>
+        <p><a href="#section2">Go to Section 2</a></p>
+    </section>
+</div>
+
+<button onclick="scrollToTop()" class="go-to-top">Go to top</button>
+
+<script>
+    // JavaScript for scrolling functionality
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        var btn = document.querySelector('.go-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    }
+
+    function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+</body>
+</html>

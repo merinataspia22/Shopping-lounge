@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Showcase with Filtering and Basket</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .product-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+    }
+    .product-item img {
+        width: 100px;
+        height: auto;
+        margin-right: 10px;
+    }
+    .basket {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+    }
+    .basket-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .basket-item img {
+        width: 50px;
+        height: auto;
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Product Showcase with Filtering</h1>
+    <div id="productShowcase">
+        <!-- Product items will be dynamically added here -->
+    </div>
+    <h2>Basket</h2>
+    <div id="basket" class="basket">
+        <!-- Basket items will be dynamically added here -->
+    </div>
+</div>
+
+<script>
+    const products = [
+        { id: 1, name: 'Product 1', image: 'railway.jpg' },
+        { id: 2, name: 'Product 2', image: 'railway.jpg' },
+        { id: 3, name: 'Product 3', image: 'railway.jpg' }
+    ];
+    const basket = [];
+
+    function renderProducts() {
+        const productShowcase = document.getElementById('productShowcase');
+        productShowcase.innerHTML = '';
+        products.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
+            productItem.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div>
+                    <h3>${product.name}</h3>
+                    <button onclick="addToBasket(${product.id})">Add to Basket</button>
+                </div>
+            `;
+            productShowcase.appendChild(productItem);
+        });
+    }
+
+    function addToBasket(productId) {
+        const product = products.find(p => p.id === productId);
+        basket.push(product);
+        renderBasket();
+    }
+
+    function renderBasket() {
+        const basketContainer = document.getElementById('basket');
+        basketContainer.innerHTML = '';
+        basket.forEach(product => {
+            const basketItem = document.createElement('div');
+            basketItem.classList.add('basket-item');
+            basketItem.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <p>${product.name}</p>
+            `;
+            basketContainer.appendChild(basketItem);
+        });
+    }
+
+    // Initial rendering
+    renderProducts();
+    renderBasket();
+</script>
+</body>
+</html>

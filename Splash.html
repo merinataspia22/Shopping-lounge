@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splash Screen</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    .splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .splash-screen img {
+        width: 200px;
+    }
+    .message {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="splash-screen">
+    <div class="message">Discover curated style, embrace individuality, and find inspiration in every choice you make</div>
+    <img src="Images/loader.gif" alt="Loading...">
+</div>
+
+<script>
+    // Extract the target page from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetPage = urlParams.get('target') || 'pagelayout.html';
+
+    // Redirect after 3 seconds
+    setTimeout(() => {
+        window.location.href = targetPage;
+    }, 2000);
+</script>
+</body>
+</html>

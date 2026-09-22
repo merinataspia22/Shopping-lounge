@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout Feedback</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        color: #333;
+    }
+    p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .feedback {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .feedback p {
+        margin-bottom: 10px;
+    }
+    .success {
+        color: green;
+    }
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Checkout Feedback</h1>
+    <div class="feedback">
+        <p class="success">Thank you for your order!</p>
+        <p>Your order has been successfully processed.</p>
+        <p>Your order number is: <strong>123456</strong></p>
+        <p>An email confirmation has been sent to your email address.</p>
+        <button onclick="goToHomepage()">Go to Homepage</button>
+    </div>
+</div>
+
+<script>
+    function goToHomepage() {
+        // Redirect to homepage
+        window.location.href = "splash.html";
+    }
+</script>
+</body>
+</html>

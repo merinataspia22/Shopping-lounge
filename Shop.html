@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Showcase</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .product {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .product-item {
+        width: 300px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .product-item img {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .product-options {
+        margin-bottom: 10px;
+    }
+    .checkout-btn {
+        margin-top: 20px;
+    }
+	
+	.order-summary {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .order-summary h2 {
+        margin-top: 0;
+    }
+    .order-summary ul {
+        list-style: none;
+        padding: 0;
+    }
+    .order-summary li {
+        margin-bottom: 10px;
+    }
+    .order-summary .total-price {
+        font-weight: bold;
+    }
+	
+	 nav {
+            background-color: #4169E1;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        ul li {
+            position: relative;
+            margin: 0 10px;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            display: block;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+        ul ul {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+        ul ul li {
+            width: 100%;
+            text-align: left;
+        }
+        ul ul li a {
+            padding: 8px 10px;
+        }
+        .slideshow-container {
+        position: relative;
+        width: 80%;
+        max-width: 600px;
+        height: 400px;
+        overflow: hidden;
+    }
+    .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+    .slide.active {
+        opacity: 1;
+    }
+    h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #fff; /* White text color */
+    background: linear-gradient(135deg, #097575, #9b514a); /* Teal to Coral gradient */
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 2px 2px 4px rgba(235, 21, 121, 0.4); /* Subtle shadow for depth */
+}
+
+h1::before,
+h1::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: inherit;
+    z-index: -1;
+    filter: blur(10px); /* Soft blur effect */
+    opacity: 0.7; /* Slightly translucent background */
+    animation: wave 5s ease-in-out infinite; /* Animation */
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Product Showcase</h1>
+    <!-- Product Showcase -->
+    <div class="product">
+        <div class="product-item" data-id="1" data-name="Product 1" data-price="50">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="Images/1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="Images/2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="Images/3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="Images/4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+        
+            <h3>Radiant Summer Attire
+            </h3>
+            <p> Lightweight and colorful summer outfits.
+            </p>
+            <p>$50.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <!-- Add more product items here -->
+		<div class="product-item" data-id="1" data-name="bicycle" data-price="60" data-image=''>
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/w1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/w2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/w3.jpg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/w4.jpg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+        
+            <h3>Women’s Winter Collection
+
+            </h3>
+            <p>Stay warm in fashion</p>
+            <p>$60.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>		
+		<div class="product-item" data-id="1" data-name="digital-graphicscat" data-price="20">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/hijab1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/hijab2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/hijab3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/hijab4.jpg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Elegant Hijab Collection</h3>
+            <p>Graceful styles for every occasion.</p>
+            <p>$20.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>		
+		<div class="product-item" data-id="1" data-name="flowers" data-price="45">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/bag1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/bag2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/bag3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/bag4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Stylish Bag Collection
+
+            </h3>
+            <p>Trendy bags for daily use </p>
+            <p>$45.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>		
+		<div class="product-item" data-id="1" data-name="mountains" data-price="20">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/jwel1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/jwel2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/jwel3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/jwel4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Elegant Jewelry Collection</h3>
+            <p>Statement jewelry, effortless beauty   </p>
+            <p>$20.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>		
+		<div class="product-item" data-id="1" data-name="Railway" data-price="10">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/lip1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/lip2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/lip3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/lip4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Liptick</h3>
+            <p>Vibrant lips, confident you   </p>
+            <p>$10.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+		
+		<div class="product-item" data-id="1" data-name="Blue" data-price="25">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/kid1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/kid2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/kid3.jpg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/kid4.jpg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Kids Collection</h3>
+            <p>Perfect for little explorer</p>
+            <p>$25.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>		
+		<div class="product-item" data-id="1" data-name="flowers" data-price="30">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/men1.jpg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/men2.png" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/men3.avif" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/men4.jpg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+            <h3>Gentleman's Essentials            </h3>
+            <p>Elegance reimagined for men</p>
+            <p>$30.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    
+    
+        <div class="product-item" data-id="1" data-name="Product 1" data-price="10">
+            <div class="slideshow-container">
+                <!-- Images for the slideshow -->
+                <div class="slide active"><img src="images/sun1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/sun2.jpg" alt="Image 2" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/sun3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                <div class="slide"><img src="images/sun4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+            </div>
+        
+            <h3>Sunglass</h3>
+            <p>See the world in style </p>
+            <p>$10.00</p>
+            <div class="product-options">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" value="1" min="1">
+            </div>
+            <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        
+            <div class="product-item" data-id="1" data-name="Product 1" data-price="70">
+                <div class="slideshow-container">
+                    <!-- Images for the slideshow -->
+                    <div class="slide active"><img src="images/wshoe1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                    <div class="slide"><img src="images/wshoe2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                    <div class="slide"><img src="images/wshoe3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                    <div class="slide"><img src="images/wshoe4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+                </div>
+            
+                <h3>Women Footwear</h3>
+                <p>Elegance from heel to toe </p>
+                <p>$70.00</p>
+                <div class="product-options">
+                    <label for="quantity1">Quantity:</label>
+                    <input type="number" id="quantity1" value="1" min="1">
+                </div>
+                <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            
+                <div class="product-item" data-id="1" data-name="Product 1" data-price="50">
+                    <div class="slideshow-container">
+                        <!-- Images for the slideshow -->
+                        <div class="slide active"><img src="images/mshoe1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                        <div class="slide"><img src="images/mshoe2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                        <div class="slide"><img src="images/mshoe3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                        <div class="slide"><img src="images/mshoe4.jpg" alt="Image 4" style="width:100%; height:100%;"></div>
+                    </div>
+                
+                    <h3>Men’s Footwear</h3>
+                    <p>Perfect blend of style and comfort </p>
+                    <p>$50.00</p>
+                    <div class="product-options">
+                        <label for="quantity1">Quantity:</label>
+                        <input type="number" id="quantity1" value="1" min="1">
+                    </div>
+                    <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                
+                    <div class="product-item" data-id="1" data-name="Product 1" data-price="10">
+                        <div class="slideshow-container">
+                            <!-- Images for the slideshow -->
+                            <div class="slide active"><img src="images/per1.jpeg" alt="Image 1" style="width:100%; height:100%;"></div>
+                            <div class="slide"><img src="images/per2.jpeg" alt="Image 2" style="width:100%; height:100%;"></div>
+                            <div class="slide"><img src="images/per3.jpeg" alt="Image 3" style="width:100%; height:100%;"></div>
+                            <div class="slide"><img src="images/per4.jpeg" alt="Image 4" style="width:100%; height:100%;"></div>
+                        </div>
+                    
+                        <h3>Perfume</h3>
+                        <p>Timeless aromas for every moment </p>
+                        <p>$10.00</p>
+                        <div class="product-options">
+                            <label for="quantity1">Quantity:</label>
+                            <input type="number" id="quantity1" value="1" min="1">
+                        </div>
+                        <button style="background-color: #ff0000; color: #ffffff;" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+        </div>
+    <!-- Order Summary (Basket) -->
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <ul id="orderList">
+            <!-- Order items will be dynamically added here -->
+        </ul>
+       <!-- <button class="checkout-btn" onclick="checkout()">Checkout</button>  -->
+		<a href="splash.html?target=checkout.html">
+		<button style="background-color: #ff0000; color: #ffffff;">Checkout </button>
+		</a>
+    </div>
+</div>
+<script>
+    let cart = [];
+    function addToCart(button) {
+        let productItem = button.parentElement;
+        let id = productItem.dataset.id;
+        let name = productItem.dataset.name;
+        let price = parseFloat(productItem.dataset.price);
+        let quantity = parseInt(productItem.querySelector('input[type="number"]').value);
+
+        let existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                id: id,
+                name: name,
+                price: price,
+                quantity: quantity
+            });
+        }
+        updateOrderSummary();	
+		 let cartUrl = `cart.html?name=${encodeURIComponent(name)}&price=${price}&quantity=${quantity}}`;
+    }
+    function updateOrderSummary() {
+        let orderList = document.getElementById('orderList');
+        let totalPrice = 0;    
+        // Clear existing order list
+        orderList.innerHTML = '';
+        // Populate order list with cart items
+        cart.forEach(item => {
+            let listItem = document.createElement('li');
+            listItem.textContent = `${item.name} - Quantity: ${item.quantity} - Price: $${(item.price * item.quantity).toFixed(2)}`;
+            orderList.appendChild(listItem);
+            totalPrice += item.price * item.quantity;
+        });
+        // Display total price
+        let totalPriceElement = document.createElement('li');
+        totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        orderList.appendChild(totalPriceElement);
+    }
+    function checkout() {
+        // Perform checkout operation (dummy action)
+        console.log(cart);
+        alert('Checkout completed successfully!');
+    }
+    document.querySelectorAll(".slideshow-container").forEach(container => {
+    let currentSlide = 0;
+    const slides = container.querySelectorAll(".slide");
+
+    function showNextSlide() {
+        // Hide the current slide
+        slides[currentSlide].classList.remove("active");
+
+        // Move to the next slide
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // Show the next slide
+        slides[currentSlide].classList.add("active");
+    }
+
+    // Change image every 3 seconds for this specific slideshow container
+    setInterval(showNextSlide, 3000);
+});
+
+    
+</script>
+</body>
+</html>

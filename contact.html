@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Shopping Lounge</title>
+    <style>
+        :root {
+            --primary-color: #ff6f61;
+            --secondary-color: #f9f9f9;
+            --text-color: #333;
+            --input-bg: #fff;
+            --input-border: #ddd;
+            --hover-color: #ff4d4d;
+            --link-color: #0066cc;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--hover-color);
+            outline: none;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background:rgb(40, 133, 240);
+            color: var(--secondary-color);
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: buttonBounce 0.5s infinite alternate;
+        }
+
+        @keyframes buttonBounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-5px);
+            }
+        }
+
+        button:hover {
+            background: rgb(65, 192, 231);
+            transform: scale(1.05);
+        }
+
+        .shopping-animation {
+            position: absolute;
+            width: 100px;
+            animation: shoppingBounce 1s infinite alternate;
+        }
+
+        @keyframes shoppingBounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cart {
+            top: 10px;
+            right: 10px;
+        }
+
+        .bag {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .socials {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            margin: 0 10px;
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .socials a:hover {
+            color: var(--hover-color);
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.2);
+            }
+        }
+
+        .address {
+            margin-top: 20px;
+            font-size: 20px;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+
+            .shopping-animation {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Your Name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Your Email">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required placeholder="Your Message" rows="5"></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <div class="address">
+        <p>Shop Address: 123 Fashion Street, Hathazari,Chittagong,Bangladesh</p>
+        <div class="socials">
+            <a href="#" target="_blank">📘</a>
+            <a href="#" target="_blank">📷</a>
+        </div>
+    </div>
+
+    <!-- Shopping animations -->
+    <img src="Images/cart.png" alt="Cart" class="shopping-animation cart">
+    <img src="images/beg2.png" alt="Bag" class="shopping-animation bag">
+</div>
+
+<script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        if (name && email && message) {
+            alert(`Thank you, ${name}! Your message has been sent.`);
+            this.reset(); // Reset form fields
+        } else {
+            alert('Please fill in all fields.');
+        }
+    });
+</script>
+
+</body>
+</html>
